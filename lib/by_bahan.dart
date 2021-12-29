@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 import 'detail_masakan.dart';
@@ -19,6 +20,10 @@ class by_bahan extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        systemOverlayStyle: SystemUiOverlayStyle(
+          systemNavigationBarColor: Colors.lightGreen, // Navigation bar
+          statusBarColor: Colors.lightGreen // Status bar
+        ),
         title: Text("Menu"),
       ),
       body: FutureBuilder(
@@ -29,12 +34,12 @@ class by_bahan extends StatelessWidget {
               return ListView.builder(
                 itemCount: snapshot.data['data'].length,
                 itemBuilder: (BuildContext context, int index) {
-                  return InkWell(
+                  return GestureDetector(
                     onTap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => detail_masakan(masakan: snapshot.data['data'][index])));
+                              builder: (context) => detail_masakan(masakan: snapshot.data['data'][index]['masakan'])));
                     },
                     child: Container(
                       margin: EdgeInsets.symmetric(vertical: 2, horizontal: 10),

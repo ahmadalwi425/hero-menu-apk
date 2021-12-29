@@ -11,10 +11,11 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -26,6 +27,8 @@ class MyApp extends StatelessWidget {
         } else {
           // Loading is done, return the app:
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            
             title: 'Hero Menu',
             theme: ThemeData(
               // This is the theme of your application.
@@ -37,7 +40,7 @@ class MyApp extends StatelessWidget {
               // or simply save your changes to "hot reload" in a Flutter IDE).
               // Notice that the counter didn't reset back to zero; the application
               // is not restarted.
-              primarySwatch: Colors.blue,
+              primarySwatch: Colors.lightGreen
             ),
             home: SecondSplashScreenView(),
           );

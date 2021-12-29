@@ -1,29 +1,30 @@
 import 'dart:io';
 
-import 'package:final_project/view/search_home_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'dart:convert';
 import '../by_bahan.dart';
 import 'package:http/http.dart' as http;
 
+import 'home_view.dart';
 import 'menu_view.dart';
 
-class HomeView extends StatefulWidget {
+class SearchHomeView extends StatefulWidget {
   static const String id = "home_view";
-  const HomeView({Key? key}) : super(key: key);
+  String search;
+  SearchHomeView(this.search);
   
 
 
   @override
-  _HomeViewState createState() => _HomeViewState();
+  _SearchHomeViewState createState() => _SearchHomeViewState(search);
 }
 
-class _HomeViewState extends State<HomeView> {
-  final String url = "http://127.0.0.1:8000/api/bahan";
+class _SearchHomeViewState extends State<SearchHomeView> {
+  final String search2;
+  _SearchHomeViewState(this.search2);
   Future getMasakan() async {
-    var response = await http.get(Uri.parse(url));
+    var response = await http.get(Uri.parse("http://127.0.0.1:8000/api/bahan/"+search2));
     return json.decode(response.body);
   }
   final _searchtxt = TextEditingController();
@@ -160,7 +161,12 @@ class _HomeViewState extends State<HomeView> {
                           MaterialPageRoute(
                               builder: (context) => MenuView()));
             }else if(asd == 2){
-              SystemNavigator.pop();
+              exit(0);
+            }else if(asd == 0){
+              Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomeView()));
             }
           });
         },
